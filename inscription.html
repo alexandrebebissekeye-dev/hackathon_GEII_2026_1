@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Concours de Robotique GEII</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="image/iut logo.png" alt="Logo IUT de Douala">
+            </div>
+            <h1>INSCRIPTION</h1>
+            <div class="logo-container">
+                <img src="image/logo emiaproc.jpg" alt="Logo Club Robotique">
+            </div>
+        </div>
+    </header>
+
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Enregistrer votre groupe</h2>
+            
+            <form id="inscriptionForm">
+                
+                <div class="input-group">
+                    <label for="filiere">Filière</label>
+                    <p class="info-text">Veuillez entrer la filière commune à tous les membres de votre groupe (ex: GEII).</p>
+                    <input type="text" id="filiere" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Membres du groupe (11 maximum)</label>
+                    <input type="text" id="membre_1" placeholder="Nom du Chef de projet (Obligatoire)" required>
+                    <input type="text" id="membre_2" placeholder="Membre 2">
+                    <input type="text" id="membre_3" placeholder="Membre 3">
+                    <input type="text" id="membre_4" placeholder="Membre 4">
+                    <input type="text" id="membre_5" placeholder="Membre 5">
+                    <input type="text" id="membre_6" placeholder="Membre 6">
+                    <input type="text" id="membre_7" placeholder="Membre 7">
+                    <input type="text" id="membre_8" placeholder="Membre 8">
+                    <input type="text" id="membre_9" placeholder="Membre 9">
+                    <input type="text" id="membre_10" placeholder="Membre 10">
+                    <input type="text" id="membre_11" placeholder="Membre 11">
+                </div>
+
+                <div class="input-group">
+                    <label for="categorie">Catégorie du projet</label>
+                    <select id="categorie" required>
+                        <option value="" disabled selected>Choisissez votre thème...</option>
+                        <option value="suiveur_ligne">Robot Suiveur de Ligne (5 places max)</option>
+                        <option value="eviteur_obstacle">Robot Éviteur d'Obstacles (6 places max)</option>
+                        <option value="Tri_Precision">Tri & Manutention de Précision(4 places max)</option>
+                        <option value="Robot_Sumo">Robot-Sumo (6 places max)</option>
+                        <option value="course_relai">course de relai (4 places max)</option>
+
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="engagement" required>
+                    <label for="engagement">
+                        <strong>Engagement matériel :</strong> Je comprends qu'une partie du matériel sera fournie, mais que notre groupe devra acheter certains composants avec notre propre argent (notamment en cas de composants défectueux ou manquants).
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-gradient" id="submitBtn">Terminer l'enregistrement</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // 1. Initialisation de Supabase avec tes clés
+const supabaseUrl = 'https://thtmmmsrmgiyrgdteijy.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRodG1tbXNybWdpeXJnZHRlaWp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTA5MDQsImV4cCI6MjA4OTAyNjkwNH0.RSx4p6bSTyM0wplTeeT2AkPPEnN0A2HNLr4js4uttLA';
+
+// CORRECTION ICI : le CDN fournit un objet global "supabase"
+const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+// 2. Écoute de la soumission du formulaire
+document.getElementById('inscriptionForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Empêche la page de se recharger
+    
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = "Vérification en cours...";
+    btn.disabled = true;
+
+    // Récupération des valeurs
+    const categorie = document.getElementById('categorie').value;
+    const dataToInsert = {
+        filiere: document.getElementById('filiere').value,
+        categorie: categorie,
+        engagement: document.getElementById('engagement').checked,
+        membre_1: document.getElementById('membre_1').value,
+        membre_2: document.getElementById('membre_2').value || null,
+        membre_3: document.getElementById('membre_3').value || null,
+        membre_4: document.getElementById('membre_4').value || null,
+        membre_5: document.getElementById('membre_5').value || null,
+        membre_6: document.getElementById('membre_6').value || null,
+        membre_7: document.getElementById('membre_7').value || null,
+        membre_8: document.getElementById('membre_8').value || null,
+        membre_9: document.getElementById('membre_9').value || null,
+        membre_10: document.getElementById('membre_10').value || null,
+        membre_11: document.getElementById('membre_11').value || null,
+    };
+
+    try {
+        // 3. Vérification du nombre de groupes existants
+        const { count, error: countError } = await client
+            .from('inscriptions')
+            .select('*', { count: 'exact', head: true })
+            .eq('categorie', categorie);
+
+        if (countError) {
+            console.error("Erreur de comptage:", countError);
+            throw countError;
+        }
+
+        // 4. Logique de blocage si c'est plein
+        if (categorie === 'suiveur_ligne' && count >= 5) {
+            alert("Désolé, le nombre de groupes est déjà complet (5) pour le Robot Suiveur de Ligne. Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
+        if (categorie === 'eviteur_obstacle' && count >= 6) {
+            alert("Désolé, le nombre de groupes est déjà complet (6) pour le Robot Éviteur d'Obstacles. Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
+
+        if (categorie === 'Tri_Precision' && count >= 4) {
+            alert("Désolé, le nombre de groupes est déjà complet (4) pour Tri et Manutention de Précision. Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
+
+        if (categorie === 'Robot_Sumo' && count >= 6) {
+            alert("Désolé, le nombre de groupes est déjà complet (6) pour Robot-Sumo. Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
+
+        if (categorie === 'course_relai' && count >= 4) {
+            alert("Désolé, le nombre de groupes est déjà complet (4) pour course de relai . Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
+        // 5. Si de la place est disponible, on insère les données
+        const { error: insertError } = await client
+            .from('inscriptions')
+            .insert([dataToInsert]);
+
+        if (insertError) {
+            console.error("Erreur d'insertion:", insertError);
+            throw insertError;
+        }
+
+        // 6. Succès ! Message et redirection
+        alert("Inscription réussie ! Votre groupe est bien enregistré.");
+        window.location.href = "detail.html"; 
+
+    } catch (error) {
+        console.error("Erreur globale:", error);
+        alert("Une erreur s'est produite. Vérifiez votre connexion ou contactez l'administrateur.");
+        btn.textContent = "Terminer l'enregistrement";
+        btn.disabled = false;
+    }
+});
+    </script>
+</body>
+</html>
