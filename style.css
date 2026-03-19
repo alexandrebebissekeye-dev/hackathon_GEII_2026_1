@@ -427,3 +427,73 @@ footer{
     border-left:5px solid #600cf9;
     border-radius:8px;
 }
+
+
+
+/* ========================================= */
+/* ===== RESPONSIVE DESIGN (TÉLÉPHONES) ==== */
+/* ========================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* --- HEADER --- */
+    .header-content {
+        flex-direction: column; /* Superpose les éléments de haut en bas */
+        text-align: center;
+        gap: 10px;
+    }
+    .header-content h1 {
+        font-size: 22px; /* Réduit la taille du titre */
+        order: 2; /* Met le titre sous les logos */
+        margin-top: 10px;
+    }
+    .logo-container {
+        justify-content: center;
+    }
+    .logo-container img {
+        width: 50px; /* Réduit la taille des logos */
+    }
+
+    /* --- HERO SECTION (AFFICHE) --- */
+    .hero-text h2 {
+        font-size: 32px; /* Titre plus petit */
+    }
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    /* --- SECTIONS GÉNÉRALES --- */
+    section {
+        padding: 40px 5%; /* Réduit l'espace vide sur les côtés */
+    }
+    section h2 {
+        font-size: 28px;
+    }
+
+    /* --- PRÉSENTATION --- */
+    .presentation-content {
+        padding: 20px;
+        border-radius: 10px;
+        border-left: none;
+        border-top: 4px solid #5A00FF; /* Passe la barre violette en haut */
+    }
+
+    /* --- ROBOTS --- */
+    .robots-container {
+        flex-direction: column; /* Superpose les images des robots */
+        align-items: center;
+        gap: 30px;
+    }
+    .robot-frame {
+        width: 100%; /* S'adapte à la largeur de l'écran */
+        max-width: 350px;
+    }
+
+    /* --- FORMULAIRE D'INSCRIPTION --- */
+    .form-container {
+        padding: 20px;
+    }
+    .checkbox-group {
+        flex-direction: column;
+    }
+}
