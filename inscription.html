@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1200">
     <title>Inscription - Concours de Robotique GEII</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -53,11 +53,12 @@
                     <label for="categorie">Catégorie du projet</label>
                     <select id="categorie" required>
                         <option value="" disabled selected>Choisissez votre thème...</option>
-                        <option value="suiveur_ligne">Robot Suiveur de Ligne (5 places max)</option>
-                        <option value="eviteur_obstacle">Robot Éviteur d'Obstacles (6 places max)</option>
+                        <option value="suiveur_ligne">Robot Suiveur de Ligne (4 places max)</option>
+                        <option value="eviteur_obstacle">Robot Éviteur d'Obstacles (4 places max)</option>
                         <option value="Tri_Precision">Tri & Manutention de Précision(4 places max)</option>
                         <option value="Robot_Sumo">Robot-Sumo (6 places max)</option>
                         <option value="course_relai">course de relai (4 places max)</option>
+                        <option value="aspirateur">aspirateur autonome(3 places max)</option>
 
                     </select>
                 </div>
@@ -122,15 +123,15 @@ document.getElementById('inscriptionForm').addEventListener('submit', async func
         }
 
         // 4. Logique de blocage si c'est plein
-        if (categorie === 'suiveur_ligne' && count >= 5) {
-            alert("Désolé, le nombre de groupes est déjà complet (5) pour le Robot Suiveur de Ligne. Veuillez choisir l'autre thème.");
+        if (categorie === 'suiveur_ligne' && count >= 4) {
+            alert("Désolé, le nombre de groupes est déjà complet (4) pour le Robot Suiveur de Ligne. Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
             return; 
         }
 
-        if (categorie === 'eviteur_obstacle' && count >= 6) {
-            alert("Désolé, le nombre de groupes est déjà complet (6) pour le Robot Éviteur d'Obstacles. Veuillez choisir l'autre thème.");
+        if (categorie === 'eviteur_obstacle' && count >= 4) {
+            alert("Désolé, le nombre de groupes est déjà complet (4) pour le Robot Éviteur d'Obstacles. Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
             return; 
@@ -159,6 +160,14 @@ document.getElementById('inscriptionForm').addEventListener('submit', async func
             btn.disabled = false;
             return; 
         }
+
+        if (categorie === 'aspirateur' && count >= 3) {
+            alert("Désolé, le nombre de groupes est déjà complet (3) aspirateur  Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
 
         // 5. Si de la place est disponible, on insère les données
         const { error: insertError } = await client
