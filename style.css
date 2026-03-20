@@ -412,6 +412,13 @@ footer {
     margin-top: auto; 
 }
 
+.footer-section strong {
+    color: #5A00FF;
+}
+
+.footer-section a:hover {
+    color: #5A00FF; /* Le lien devient violet au survol */
+}
 
 
 
