@@ -43,6 +43,12 @@ header{
     border-radius:10px;
 }
 
+.log3o-container img{
+    width:160px; /* Taille ajustable pour les logos */
+    border-radius:10px;
+}
+
+
 h1{
     font-weight:800;
     color:#ffffff;
