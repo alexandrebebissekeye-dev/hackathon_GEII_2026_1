@@ -459,3 +459,80 @@ footer {
 
 
 
+
+
+/* ========================================= */
+/* ===== SECTION HERO (SLIDER + TEXTE) ===== */
+/* ========================================= */
+
+.zero {
+    position: relative; /* Conteneur principal */
+    width: 100%;
+    height: 400px; /* Tu peux ajuster cette hauteur */
+    display: flex;
+    align-items: center; /* Centre le texte verticalement */
+    justify-content: center; /* Centre le texte horizontalement */
+    overflow: hidden;
+}
+
+/* --- LE SLIDER (FONCTIONNE COMME UN FOND) --- */
+.slider {
+    position: absolute; /* Se détache pour aller en arrière-plan */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Couche du fond (Niveau 1) */
+}
+
+/* Filtre noir transparent sur les images */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Assombrit les images de 50% */
+    z-index: 2; /* Au-dessus des images, sous le texte (Niveau 2) */
+}
+
+.slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    animation: slideShow 15s infinite; /* 15 secondes au total */
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Remplit l'espace sans déformer */
+    flex-shrink: 0;
+}
+
+/* --- LE TEXTE FIGÉ --- */
+.zero-text {
+    position: relative;
+    z-index: 3; /* Couche supérieure : reste toujours devant ! (Niveau 3) */
+    text-align: center;
+   /* transform:translate(-50%,-50%);*/
+   
+}
+
+
+
+
+.zero-text h2{
+    font-size:55px;
+    color:#ffffff;
+    text-shadow:0 0 20px #600cf9, 0 0 40px #47129f;
+}
+
+
+/* --- ANIMATION DU DIAPORAMA (AVEC PAUSES) --- */
+@keyframes slideShow {
+    0%, 25% { transform: translateX(0%); }      /* Image 1 reste fixe puis... */
+    33%, 58% { transform: translateX(-100%); }  /* Glisse vers Image 2, reste fixe puis... */
+    66%, 91% { transform: translateX(-200%); }  /* Glisse vers Image 3, reste fixe puis... */
+    100% { transform: translateX(0%); }         /* Retour très rapide au début */
+}
