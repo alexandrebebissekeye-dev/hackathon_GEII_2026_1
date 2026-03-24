@@ -34,6 +34,18 @@
                     <input type="text" id="filiere" required>
                 </div>
 
+
+
+
+
+            <div class="input-group">
+                    <label for="niveau">niveau</label>
+                    <p class="info-text">Entrez la filière commune à tous les membres (ex: L2).</p>
+                    <input type="text" id="niveau" required>
+            </div>
+
+
+
                 <div class="input-group">
                     <label>Membres du groupe (11 maximum)</label>
                     <input type="text" id="membre_1" placeholder="Nom du Chef de projet (Obligatoire)" required>
@@ -95,6 +107,7 @@ document.getElementById('inscriptionForm').addEventListener('submit', async func
     const categorie = document.getElementById('categorie').value;
     const dataToInsert = {
         filiere: document.getElementById('filiere').value,
+        niveau: document.getElementById('niveau').value,
         categorie: categorie,
         engagement: document.getElementById('engagement').checked,
         membre_1: document.getElementById('membre_1').value,
