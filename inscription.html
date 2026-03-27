@@ -47,30 +47,25 @@
 
 
                 <div class="input-group">
-                    <label>Membres du groupe (11 maximum)</label>
+                    <label>Membres du groupe (6 maximum)</label>
                     <input type="text" id="membre_1" placeholder="Nom du Chef de groupe (Obligatoire)" required>
                     <input type="text" id="membre_2" placeholder="Membre 2">
                     <input type="text" id="membre_3" placeholder="Membre 3">
                     <input type="text" id="membre_4" placeholder="Membre 4">
                     <input type="text" id="membre_5" placeholder="Membre 5">
                     <input type="text" id="membre_6" placeholder="Membre 6">
-                    <input type="text" id="membre_7" placeholder="Membre 7">
-                    <input type="text" id="membre_8" placeholder="Membre 8">
-                    <input type="text" id="membre_9" placeholder="Membre 9">
-                    <input type="text" id="membre_10" placeholder="Membre 10">
-                    <input type="text" id="membre_11" placeholder="Membre 11">
                 </div>
 
                 <div class="input-group">
                     <label for="categorie">Catégorie du projet</label>
                     <select id="categorie" required>
                         <option value="" disabled selected>Choisissez votre thème...</option>
-                        <option value="suiveur_ligne">Robot Suiveur de Ligne (4 places max)</option>
-                        <option value="eviteur_obstacle">Robot Éviteur d'Obstacles (4 places max)</option>
-                        <option value="Tri_Precision">Tri & Manutention de Précision(4 places max)</option>
-                        <option value="Robot_Sumo">Robot-Sumo (6 places max)</option>
-                        <option value="course_relai">course de relai (4 places max)</option>
-                        <option value="aspirateur">aspirateur autonome(3 places max)</option>
+                        <option value="suiveur_ligne">Robot Suiveur de Ligne (10 places max)</option>
+                        <option value="eviteur_obstacle">Robot Éviteur d'Obstacles (9 places max)</option>
+                        <option value="Tri_Precision">Tri & Manutention de Précision(10 places max)</option>
+                        <option value="Robot_Sumo">Robot-Sumo (8 places max)</option>
+                        <option value="course_relai">course de relai (10 places max)</option>
+                        <option value="aspirateur">aspirateur autonome(6 places max)</option>
 
                     </select>
                 </div>
@@ -116,11 +111,6 @@ document.getElementById('inscriptionForm').addEventListener('submit', async func
         membre_4: document.getElementById('membre_4').value || null,
         membre_5: document.getElementById('membre_5').value || null,
         membre_6: document.getElementById('membre_6').value || null,
-        membre_7: document.getElementById('membre_7').value || null,
-        membre_8: document.getElementById('membre_8').value || null,
-        membre_9: document.getElementById('membre_9').value || null,
-        membre_10: document.getElementById('membre_10').value || null,
-        membre_11: document.getElementById('membre_11').value || null,
     };
 
     try {
@@ -136,30 +126,30 @@ document.getElementById('inscriptionForm').addEventListener('submit', async func
         }
 
         // 4. Logique de blocage si c'est plein
-        if (categorie === 'suiveur_ligne' && count >= 4) {
-            alert("Désolé, le nombre de groupes est déjà complet (4) pour le Robot Suiveur de Ligne. Veuillez choisir l'autre thème.");
+        if (categorie === 'suiveur_ligne' && count >= 10) {
+            alert("Désolé, le nombre de groupes est déjà complet (10) pour le Robot Suiveur de Ligne. Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
             return; 
         }
 
-        if (categorie === 'eviteur_obstacle' && count >= 4) {
-            alert("Désolé, le nombre de groupes est déjà complet (4) pour le Robot Éviteur d'Obstacles. Veuillez choisir l'autre thème.");
-            btn.textContent = "Terminer l'enregistrement";
-            btn.disabled = false;
-            return; 
-        }
-
-
-        if (categorie === 'Tri_Precision' && count >= 4) {
-            alert("Désolé, le nombre de groupes est déjà complet (4) pour Tri et Manutention de Précision. Veuillez choisir l'autre thème.");
+        if (categorie === 'eviteur_obstacle' && count >= 9) {
+            alert("Désolé, le nombre de groupes est déjà complet (9) pour le Robot Éviteur d'Obstacles. Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
             return; 
         }
 
 
-        if (categorie === 'Robot_Sumo' && count >= 6) {
+        if (categorie === 'Tri_Precision' && count >= 10) {
+            alert("Désolé, le nombre de groupes est déjà complet (10) pour Tri et Manutention de Précision. Veuillez choisir l'autre thème.");
+            btn.textContent = "Terminer l'enregistrement";
+            btn.disabled = false;
+            return; 
+        }
+
+
+        if (categorie === 'Robot_Sumo' && count >= 8) {
             alert("Désolé, le nombre de groupes est déjà complet (6) pour Robot-Sumo. Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
@@ -167,14 +157,14 @@ document.getElementById('inscriptionForm').addEventListener('submit', async func
         }
 
 
-        if (categorie === 'course_relai' && count >= 4) {
-            alert("Désolé, le nombre de groupes est déjà complet (4) pour course de relai . Veuillez choisir l'autre thème.");
+        if (categorie === 'course_relai' && count >= 10) {
+            alert("Désolé, le nombre de groupes est déjà complet (8) pour course de relai . Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
             return; 
         }
 
-        if (categorie === 'aspirateur' && count >= 3) {
+        if (categorie === 'aspirateur' && count >= 6) {
             alert("Désolé, le nombre de groupes est déjà complet (3) aspirateur  Veuillez choisir l'autre thème.");
             btn.textContent = "Terminer l'enregistrement";
             btn.disabled = false;
